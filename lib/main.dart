@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'core/themes/app_theme.dart';
+
 void main() {
   runApp(const CleanArchitecture());
 }
@@ -10,6 +12,7 @@ class CleanArchitecture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: appTheme,
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
@@ -17,7 +20,7 @@ class CleanArchitecture extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            child: const Text('Hello World'),
+            child: Text('hello world'),
           ),
         ),
       ),
