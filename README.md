@@ -2,15 +2,19 @@
 
 Clean architecture
 
-## Getting Started
+Used libraries : 
 
-This project is a starting point for a Flutter application.
+1- Bloc for state management
 
-A few resources to get you started if this is your first Flutter project:
+2- dartz for Functional programming 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3- equatable for Value equality
+ 
+4- get it for Service locator
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+5- Http for Remote API
+
+6- Internet connection checker
+
+7- Shared Preferences for Local cache
+
