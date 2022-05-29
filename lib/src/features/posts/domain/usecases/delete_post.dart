@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
 
-import '../repositories/post_repositories.dart';
+import '../repositories/posts_repositories.dart';
 
 class DeletePostUseCase {
-  final PostRepository repository;
+  final PostsRepository repository;
 
   DeletePostUseCase(this.repository);
 

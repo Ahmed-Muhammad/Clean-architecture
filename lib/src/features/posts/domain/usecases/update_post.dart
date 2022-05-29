@@ -3,10 +3,10 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
 
 import '../entities/posts.dart';
-import '../repositories/post_repositories.dart';
+import '../repositories/posts_repositories.dart';
 
 class UpdatePostUseCase {
-  final PostRepository repository;
+  final PostsRepository repository;
 
   UpdatePostUseCase(this.repository);
 
