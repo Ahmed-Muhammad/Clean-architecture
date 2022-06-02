@@ -45,40 +45,32 @@ class PostsRepositoryImpl implements PostsRepository {
     final PostModel postModel =
         PostModel(body: post.body, title: post.title, id: post.id);
 
-    if (await networkInfo.isDeviceConnected) {
-      try {
-        await remoteDataSource.addPosts(postModel);
-        return Right(unit);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }
+    return await _getMassage(() {
+      return remoteDataSource.addPosts(postModel);
+    });
   }
 
   @override
   Future<Either<Failure, Unit>> deletePost(int postId) async {
-    if (await networkInfo.isDeviceConnected) {
-      try {
-        await remoteDataSource.deletePosts(postId);
-        return Right(unit);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }
+    return await _getMassage(() {
+      return remoteDataSource.deletePosts(postId);
+    });
   }
 
   @override
   Future<Either<Failure, Unit>> updatePost(Post post) async {
     final PostModel postModel =
         PostModel(body: post.body, title: post.title, id: post.id);
+    return await _getMassage(() {
+      return remoteDataSource.updatePosts(postModel);
+    });
+  }
 
+  Future<Either<Failure, Unit>> _getMassage(
+      Future<Unit> Function() DeleteOrUpdateOrAdd) async {
     if (await networkInfo.isDeviceConnected) {
       try {
-        await remoteDataSource.updatePosts(postModel);
+        await DeleteOrUpdateOrAdd();
         return Right(unit);
       } on ServerException {
         return Left(ServerFailure());
