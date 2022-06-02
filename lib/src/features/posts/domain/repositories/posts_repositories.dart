@@ -15,6 +15,7 @@ import '../entities/posts.dart';
 //by using Either
 //------
 //Unit is for returning nothing like(void)
+
 abstract class PostsRepository {
   Future<Either<Failure, List<Post>>> getAllPosts();
 

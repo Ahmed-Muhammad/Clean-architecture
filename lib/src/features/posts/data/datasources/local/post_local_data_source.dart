@@ -5,12 +5,12 @@ import '../../models/post_models.dart';
 abstract class PostLocalDataSource {
   Future<List<PostModel>> getCachedPosts();
 
-  Future<Unit> CachePosts(List<PostModel> PostModels);
+  Future<Unit> cachePosts(List<PostModel> PostModels);
 }
 
 class PostLocalDataSourceImpl implements PostLocalDataSource {
   @override
-  Future<Unit> CachePosts(List<PostModel> PostModels) {
+  Future<Unit> cachePosts(List<PostModel> PostModels) {
     // TODO: implement CachePosts
     throw UnimplementedError();
   }

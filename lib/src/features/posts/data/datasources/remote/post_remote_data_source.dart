@@ -17,6 +17,12 @@ abstract class PostRemoteDataSource {
 
 class PostRemoteDataSourceImpl implements PostRemoteDataSource {
   @override
+  Future<List<PostModel>> getAllPosts() {
+    // TODO: implement getAllPosts
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Unit> addPosts(PostModel postModel) {
     // TODO: implement addPosts
     throw UnimplementedError();
@@ -25,12 +31,6 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
   @override
   Future<Unit> deletePosts(int postId) {
     // TODO: implement deletePosts
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<PostModel>> getAllPosts() {
-    // TODO: implement getAllPosts
     throw UnimplementedError();
   }
 

@@ -5,7 +5,6 @@ import '../../../../core/errors/failure.dart';
 import '../entities/posts.dart';
 import '../repositories/posts_repositories.dart';
 
-
 //Call functions is for making the class callable
 //for instance : if we want to use it -->
 //  AddPostUseCase() or AddPostUseCase.call()

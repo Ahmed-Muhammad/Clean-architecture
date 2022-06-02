@@ -1,6 +1,9 @@
+import 'package:clean_architecture/src/features/posts/data/models/post_models.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
+import '../../../../core/network/network_info.dart';
 import '../../domain/entities/posts.dart';
 import '../../domain/repositories/posts_repositories.dart';
 import '../datasources/local/post_local_data_source.dart';
@@ -9,31 +12,79 @@ import '../datasources/remote/post_remote_data_source.dart';
 class PostsRepositoryImpl implements PostsRepository {
   final PostRemoteDataSource remoteDataSource;
   final PostLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
 
   PostsRepositoryImpl({
+    required this.networkInfo,
     required this.remoteDataSource,
     required this.localDataSource,
   });
 
   @override
   Future<Either<Failure, List<Post>>> getAllPosts() async {
-    await remoteDataSource.getAllPosts();
-    await localDataSource.getCachedPosts();
-    throw UnimplementedError();
+    if (await networkInfo.isDeviceConnected) {
+      try {
+        final remotePosts = await remoteDataSource.getAllPosts();
+        localDataSource.cachePosts(remotePosts);
+        return Right(remotePosts);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localPosts = await localDataSource.getCachedPosts();
+        return Right(localPosts);
+      } on EmptyCacheException {
+        return Left(EmptyCacheFailure());
+      }
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> addPost(Post post) {
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> addPost(Post post) async {
+    final PostModel postModel =
+        PostModel(body: post.body, title: post.title, id: post.id);
+
+    if (await networkInfo.isDeviceConnected) {
+      try {
+        await remoteDataSource.addPosts(postModel);
+        return Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> deletePost(int id) {
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> deletePost(int postId) async {
+    if (await networkInfo.isDeviceConnected) {
+      try {
+        await remoteDataSource.deletePosts(postId);
+        return Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> updatePost(Post post) {
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> updatePost(Post post) async {
+    final PostModel postModel =
+        PostModel(body: post.body, title: post.title, id: post.id);
+
+    if (await networkInfo.isDeviceConnected) {
+      try {
+        await remoteDataSource.updatePosts(postModel);
+        return Right(unit);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
   }
 }
