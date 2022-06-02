@@ -9,6 +9,8 @@ import '../../domain/repositories/posts_repositories.dart';
 import '../datasources/local/post_local_data_source.dart';
 import '../datasources/remote/post_remote_data_source.dart';
 
+typedef Future<Unit> DeleteOrUpdateOrAdd();
+
 class PostsRepositoryImpl implements PostsRepository {
   final PostRemoteDataSource remoteDataSource;
   final PostLocalDataSource localDataSource;
@@ -67,7 +69,7 @@ class PostsRepositoryImpl implements PostsRepository {
   }
 
   Future<Either<Failure, Unit>> _getMassage(
-      Future<Unit> Function() DeleteOrUpdateOrAdd) async {
+      DeleteOrUpdateOrAdd DeleteOrUpdateOrAdd) async {
     if (await networkInfo.isDeviceConnected) {
       try {
         await DeleteOrUpdateOrAdd();
