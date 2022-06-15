@@ -15,11 +15,7 @@ class Post extends Equatable {
   final String title;
   final String body;
 
-  Post({
-    required this.id,
-    required this.title,
-    required this.body,
-  });
+  Post({required this.id, required this.title, required this.body});
 
   //This override for Equatable package
   @override

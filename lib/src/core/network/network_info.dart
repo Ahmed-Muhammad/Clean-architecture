@@ -13,6 +13,7 @@ class NetworkInfoImpl implements NetworkInfo {
 
   NetworkInfoImpl(this.connectionChecker);
 
+  // internet_connection_checker الخاصه بـ
   @override
   Future<bool> get isDeviceConnected {
     return connectionChecker.hasConnection;

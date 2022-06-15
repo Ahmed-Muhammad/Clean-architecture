@@ -4,7 +4,7 @@ import '../../../../core/errors/failure.dart';
 import '../entities/posts.dart';
 
 //repositories will be abstract class because
-//it is shared between domain layer and  data layer
+//it is shared between domain layer and data layer
 //it will be implemented to data layer
 //-----------------------------------------------
 // in domain layer we write the needed functions
